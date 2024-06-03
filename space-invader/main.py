@@ -1,5 +1,6 @@
 import pygame
 import random
+import sys
 
 # Inicialização do pygame
 pygame.init()
@@ -14,16 +15,29 @@ pygame.display.set_caption("Space Invaders")
 black = (0, 0, 0)
 white = (255, 255, 255)
 
+# Função para carregar imagens
+def load_image(file):
+    try:
+        image = pygame.image.load(file)
+        return image
+    except pygame.error as e:
+        print(f"Não foi possível carregar a imagem {file}: {e}")
+        sys.exit()
+
+# Carregar imagens
+player_img = load_image('ship-main.png')
+enemy_img = load_image('ship-enemy.png')
+
+# Obter dimensões das imagens
+player_width, player_height = player_img.get_size()
+enemy_width, enemy_height = enemy_img.get_size()
+
 # Jogador
-player_width = 50
-player_height = 50
 player_x = (screen_width // 2) - (player_width // 2)
 player_y = screen_height - player_height - 10
 player_speed = 5
 
 # Inimigo
-enemy_width = 50
-enemy_height = 50
 enemy_speed = 3
 enemy_list = []
 
@@ -35,12 +49,12 @@ bullet_list = []
 
 # Função para desenhar o jogador
 def draw_player(x, y):
-    pygame.draw.rect(screen, white, (x, y, player_width, player_height))
+    screen.blit(player_img, (x, y))
 
 # Função para desenhar os inimigos
 def draw_enemies(enemies):
     for enemy in enemies:
-        pygame.draw.rect(screen, white, (enemy[0], enemy[1], enemy_width, enemy_height))
+        screen.blit(enemy_img, (enemy[0], enemy[1]))
 
 # Função para desenhar projéteis
 def draw_bullets(bullets):
