@@ -9,11 +9,12 @@ pygame.init()
 screen_width = 800
 screen_height = 600
 screen = pygame.display.set_mode((screen_width, screen_height))
-pygame.display.set_caption("Space Invaders")
+pygame.display.set_caption("Space Invaders by Mona")
 
 # Cores
 black = (0, 0, 0)
 white = (255, 255, 255)
+pink = (255, 20, 147)
 
 # Função para carregar imagens
 def load_image(file):
@@ -31,6 +32,18 @@ enemy_img = load_image('ship-enemy.png')
 # Obter dimensões das imagens
 player_width, player_height = player_img.get_size()
 enemy_width, enemy_height = enemy_img.get_size()
+
+# Carregar fonte
+def load_font(file, size):
+    try:
+        font = pygame.font.Font(file, size)
+        return font
+    except pygame.error as e:
+        print(f"Não foi possível carregar a fonte {file}: {e}")
+        sys.exit()
+
+# Carregar fonte
+font = load_font('space-font.otf', 30)
 
 # Jogador
 player_x = (screen_width // 2) - (player_width // 2)
@@ -60,6 +73,11 @@ def draw_enemies(enemies):
 def draw_bullets(bullets):
     for bullet in bullets:
         pygame.draw.rect(screen, white, (bullet[0], bullet[1], bullet_width, bullet_height))
+
+# Função para desenhar texto
+def draw_text(text, font, color, x, y):
+    text_surface = font.render(text, True, color)
+    screen.blit(text_surface, (x, y))
 
 # Função principal
 def game_loop():
@@ -114,6 +132,11 @@ def game_loop():
         draw_player(player_x, player_y)
         draw_enemies(enemy_list)
         draw_bullets(bullet_list)
+
+        # Desenhar texto "Mona" no canto inferior direito
+        text = "Mona"
+        text_width, text_height = font.size(text)
+        draw_text(text, font, pink, screen_width - text_width - 10, screen_height - text_height - 10)
 
         pygame.display.flip()
         clock.tick(60)
