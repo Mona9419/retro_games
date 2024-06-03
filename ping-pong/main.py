@@ -8,11 +8,12 @@ pygame.init()
 largura = 800
 altura = 600
 tela = pygame.display.set_mode((largura, altura))
-pygame.display.set_caption("Ping Pong")
+pygame.display.set_caption("Ping Pong by Mona")
 
 # Define as cores
 branco = (255, 255, 255)
 preto = (0, 0, 0)
+vermelho = (255, 0, 0)
 
 # Configura o relógio para controlar a taxa de frames
 clock = pygame.time.Clock()
@@ -44,7 +45,7 @@ def desenhar():
     tela.fill(preto)
     pygame.draw.rect(tela, branco, (barra_a_x, barra_a_y, largura_barra, altura_barra))
     pygame.draw.rect(tela, branco, (barra_b_x, barra_b_y, largura_barra, altura_barra))
-    pygame.draw.ellipse(tela, branco, (bola_x - raio_bola, bola_y - raio_bola, raio_bola * 2, raio_bola * 2))
+    pygame.draw.ellipse(tela, vermelho, (bola_x - raio_bola, bola_y - raio_bola, raio_bola * 2, raio_bola * 2))
     pygame.draw.aaline(tela, branco, (largura // 2, 0), (largura // 2, altura))
     
     texto = fonte.render(f"{score_a}  {score_b}", True, branco)
