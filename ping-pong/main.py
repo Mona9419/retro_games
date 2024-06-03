@@ -14,6 +14,7 @@ pygame.display.set_caption("Ping Pong by Mona")
 branco = (255, 255, 255)
 preto = (0, 0, 0)
 vermelho = (255, 0, 0)
+rosa = (255, 105, 180)  # Adicione esta linha
 
 # Configura o relógio para controlar a taxa de frames
 clock = pygame.time.Clock()
@@ -37,10 +38,11 @@ velocidade_bola_y = 5
 score_a = 0
 score_b = 0
 
-# Configura a fonte para o texto de pontuação
+# Configura as fontes para o texto de pontuação e o nome
 fonte = pygame.font.Font(None, 74)
+fonte_retro = pygame.font.Font("retro_font.ttf", 36)  # Use uma fonte retro personalizada
 
-# Função para desenhar as barras, a bola e a pontuação
+# Função para desenhar as barras, a bola, a pontuação e o nome
 def desenhar():
     tela.fill(preto)
     pygame.draw.rect(tela, branco, (barra_a_x, barra_a_y, largura_barra, altura_barra))
@@ -50,6 +52,9 @@ def desenhar():
     
     texto = fonte.render(f"{score_a}  {score_b}", True, branco)
     tela.blit(texto, (largura // 2 - texto.get_width() // 2, 10))
+    
+    nome_texto = fonte_retro.render("Mona", True, rosa)  # Renderize o texto "Mona" com a fonte retro e a cor rosa
+    tela.blit(nome_texto, (largura - nome_texto.get_width() - 10, altura - nome_texto.get_height() - 10))  # Posicione no canto inferior direito
     
     pygame.display.flip()
 
